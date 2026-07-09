@@ -1,9 +1,10 @@
 name: Quant Scanner
 on:
   schedule:
-    # 한국 시간(KST) 월~금 밤 23:30 ~ 새벽 06:30에 매 시간 실행되도록 UTC로 변환한 값
-    - cron: "30 14 * * 1-5"
-    - cron: "30 15-21 * * 1-5"
+    # 1. Run at 23:30 from Monday to Friday
+    - cron: "30 23 * * 1-5"
+    # 2. Run hourly from 00:30 to 06:30, Monday to Friday
+    - cron: "30 0-6 * * 1-5"
   workflow_dispatch:
 
 jobs:
