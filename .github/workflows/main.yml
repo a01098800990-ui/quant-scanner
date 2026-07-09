@@ -1,0 +1,23 @@
+name: Quant Scanner
+on:
+  schedule:
+    # 한국 시간 기준 매일 08:00 ~ 15:30, 30분마다 실행
+    # (UTC 기준 23:00 ~ 06:30)
+    - cron: '30 23-6 * * 1-5'
+  workflow_dispatch: # 버튼을 눌러 수동으로도 실행할 수 있게 함
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run Scanner
+        run: python scanner.py
+        env:
+          GSPREAD_KEY: ${{ secrets.GSPREAD_KEY }}
